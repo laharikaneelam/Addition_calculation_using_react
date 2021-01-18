@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <style>
+    #winner {
+      font-size: 72px;
+      color: green;
+    }
+    h1,#numbers {
+    text-align: center;
+    font-family: sans-serif;
+    }
+    #problem {
+    font-size: 72px;
+    }
+    </style>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Count</title>
+  </head>
+  <body>
+    <h1>Addition</h1>
+    <div id="numbers">
+    </div>
+    <script type="text/babel">
+      class App extends React.Component{
+        constructor(props){
+          super(props);
+          this.state = {
+            num1:5,
+            num2:5,
+            response:'',
+            score:0
+          };
+        }
+        render(){
+          if (this.state.score === 10) {
+            return (
+            <div id="winner">
+                You won!
+            </div>
+          );
+          }
+          return(
+          <div>
+            <h3 id="problem">{this.state.num1} + {this.state.num2}</h3>
+            <input type="text" onKeyPress={this.inputKeyPress} onChange={this.updateResponse} value={this.state.response}/>
+            <div>Score : {this.state.score}</div>
+          </div>
+          );
+        }
+        inputKeyPress = (event) => {
+
+    // Check if the Enter key was pressed
+            if (event.key === 'Enter') {
+
+                // Extract answer
+                const answer = parseInt(this.state.response)
+
+                // Check if answer is correct
+                if (answer === this.state.num1 + this.state.num2) {
+                    this.setState(state => ({
+                        score: state.score + 1,
+                        num1: Math.ceil(Math.random() * 10),
+                        num2: Math.ceil(Math.random() * 10),
+                        response: ''
+                    }));
+                }
+                else {
+                    this.setState(state => ({
+                        score: state.score - 1,
+                        response: ''
+                    }));
+                }
+            }
+        }
+        updateResponse = (event) => {
+          this.setState({
+          response: event.target.value
+        });
+        }
+      }
+      ReactDOM.render(<App/>,document.querySelector('#numbers'));
+    </script>
+  </body>
+</html>
