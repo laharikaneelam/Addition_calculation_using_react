@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Count</title>
+  </head>
+  <body>
+    <h1>Count</h1>
+    <div id="countid">
+    </div>
+    <script type="text/babel">
+      class App extends React.Component{
+        constructor(props){
+          super(props);
+          this.state = {
+            count:0
+          };
+        }
+        render(){
+          return(
+          <div>
+            <h3>{this.state.count}</h3>
+            <button onClick={this.countf}>Count</button>
+            <p>The count is {this.state.count}</p>
+          </div>
+          );
+        }
+        countf = () =>{
+          this.setState(state =>({
+            count:state.count + 1
+          }));
+        }
+      }
+      ReactDOM.render(<App/>,document.querySelector('#countid'));
+    </script>
+  </body>
+</html>
